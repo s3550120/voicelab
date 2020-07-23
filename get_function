@@ -11,13 +11,13 @@ def lambda_handler(event, context):
     voice = event["voice"]
     text = event["text"]
 
-    print('Generating a new DynamoDB record, with  the unique ID: ' + recordId)
+    print('Generating a new DynamoDB record, with the unique ID: ' + recordingId)
     print('The Input Text: ' + text)
     print('The Selected voice: ' + voice)
 
     # This will create a new record in the DynamoDB Table
     dynamodb = boto3.resource('dynamodb')
-    table = dynamodb.Table(os.environ['DB_TABLE_NAME'])
+    table = dynamodb.Table(os.environ['DB_TABLENAME'])
     table.put_item(
         Item={
             ' unique id' : recordId,
