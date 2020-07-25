@@ -43,6 +43,8 @@ def lambda_handler(event, context):
     polly = boto3.client('polly')
     for textChunk in textChunks:
         response = polly.synthesize_speech(
+        
+        # output format - mp3
             OutputFormat='mp3',
             Text = textChunk,
             VoiceId = voice
