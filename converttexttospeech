@@ -25,10 +25,8 @@ def lambda_handler(event, context):
 
     rest = text
 
-    # Because single invocation of the polly synthesize_speech api can
-    # transform text with about 3000 characters, we are dividing the
-    # post into blocks of approximately 2500 characters.
-    textBlocks = []
+    # Large amount of characters can take a while to process so we divide them by 2500 characters at one time.
+    textChunk = []
     while (len(rest) > 2600):
         begin = 0
         end = rest.find(".", 2500)
@@ -36,36 +34,36 @@ def lambda_handler(event, context):
         if (end == -1):
             end = rest.find(" ", 2500)
 
-        textBlock = rest[begin:end]
+        textChunk = rest[begin:end]
         rest = rest[end:]
-        textBlocks.append(textBlock)
-    textBlocks.append(rest)
+        textChunks.append(textChunk)
+    textChunks.append(rest)
 
-    # For each block, invoke Polly API, which will transform text into audio
+    # This calls the Polly API to convert the text to audio
     polly = boto3.client('polly')
-    for textBlock in textBlocks:
+    for textChunk in textChunks:
         response = polly.synthesize_speech(
             OutputFormat='mp3',
-            Text = textBlock,
+            Text = textChunk,
             VoiceId = voice
         )
 
         # Save the audio stream returned by Amazon Polly on Lambda's temp
-        # directory. If there are multiple text blocks, the audio stream
+        # directory. If there are multiple text chunks, the audio stream
         # will be combined into a single file.
         if "AudioStream" in response:
             with closing(response["AudioStream"]) as stream:
-                output = os.path.join("/tmp/", postId)
+                output = os.path.join("/tmp/", uniqueId)
                 with open(output, "a") as file:
                     file.write(stream.read())
 
     s3 = boto3.client('s3')
-    s3.upload_file('/tmp/' + postId,
+    s3.upload_file('/tmp/' + uniqueId,
       os.environ['BUCKET_NAME'],
       postId + ".mp3")
     s3.put_object_acl(ACL='public-read',
       Bucket=os.environ['BUCKET_NAME'],
-      Key= postId + ".mp3")
+      Key= uniqueId + ".mp3")
 
     location = s3.get_bucket_location(Bucket=os.environ['BUCKET_NAME'])
     region = location['LocationConstraint']
@@ -78,7 +76,7 @@ def lambda_handler(event, context):
     url = url_beginning \
             + str(os.environ['BUCKET_NAME']) \
             + "/" \
-            + str(postId) \
+            + str(uniqueId) \
             + ".mp3"
 
     # Updating the item in DynamoDB
