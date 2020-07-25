@@ -73,6 +73,7 @@ def lambda_handler(event, context):
     else:
         url_beginning = "https://s3-" + str(region) + ".amazonaws.com/"
 
+    #creates the mp3 url
     url = url_beginning \
             + str(os.environ['BUCKET_NAME']) \
             + "/" \
