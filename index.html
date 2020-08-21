@@ -1,0 +1,141 @@
+<!-- Linking the CSS and Fonts -->
+<html>
+  <head>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap" rel="stylesheet">
+  </head>
+    
+
+<!-- Start of body -->
+  <body>
+     
+      
+    <!-- Logo -->
+    <div class="header">  
+        <div class="logo"><h1>VOICELAB.</h1>
+    </div>
+    
+</div>
+    
+    
+    
+    <br><br>
+    
+    <!-- Instructions displayed -->
+      
+    <div id="instructions">
+        
+        <p id="how-to">HOW TO USE VOICELAB.</p>
+        
+        <br><br><br>
+        <p>1. Select the voice you want your text to be converted to.</p>
+        <p>2. Enter the text you want converted to audio. Click 'CONVERT'.</p>
+        <p>3. Use your unique code given and use it to search for your audio in the database.</p>
+    
+    </div>
+     
+      
+   <!-- Select Voice -->
+
+    <div id="content">
+
+      <p id="voice-header"><b>Select Your Voice.</b></p>
+        
+        <br><br>
+
+      <select id="voiceSelected">
+        <option value="Joanna">Joanna [English]</option>
+        <option value="Maja">Maja [Polish]</option>
+        <option value="Enrique">Enrique [Spanish]</option>
+        <option value="Marlene">Marlene [German]</option>
+        <option value="Mathieu">Mathieu [French]</option>
+        <option value="Cristiano">Cristiano [Portuquese]</option>
+        <option value="Liv">Liv [Norwegian]</option>
+        <option value="Mizuki">Mizuki [Japanese]</option>
+        <option value="Carla">Carla [Italian]</option>
+        <option value="Carmen">Carmen [Romanian]</option>
+        <option value="Tatyana">Tatyana [Russian]</option>
+        <option value="Astrid">Astrid [Swedish]</option>
+        <option value="Filiz">Filiz [Turkish]</option>
+        <option value="Gwyneth">Gwyneth [Welsh]</option>
+        <option value="Karl">Karl [Icelandic]</option>
+      </select>
+        
+        <!-- Convert Button -->
+
+      <input type="submit" value="Convert" id="sayButton" class="buttons">
+
+      <span id="postIDreturned"><b></b></span>
+    <br><br>
+
+    <textarea id ="postText" placeholder="Enter your text in here :)"></textarea>
+    <span id="charCounter"><b>Characters:</b> 0</span>
+        
+        
+       
+    <!-- Provides Space between content -->
+    <br> <br> <br> <br> <br> <br> <br> <br>
+        
+   </div>
+      
+      <!-- Heading -->
+        
+    <div id="instructions">
+        
+         <p id="voice-header"><b>Search For Your Voice.</b></p>
+        
+
+    <br><br><br><br>
+      <div id="retrieve"><b>Search for your converted file using your unique code below: </b></div>
+        
+        <br><br>
+        
+        <!-- Search Function -->
+        
+        <input type="text" id="postId" placeholder="Enter your unique code here"> <input type="submit" class="buttons" value="Search" id="searchButton">
+      <br><br><br>
+    </div>
+        
+      <br><br><br><br>
+    
+
+
+
+      <table id="posts">
+        <colgroup>
+          <col style="width:10%">
+          <col style="width:7%">
+          <col style="width:45%">
+          <col style="width:8%">
+          <col style="width:30%">
+        </colgroup>
+        <tbody>
+          <tr>
+            <th>Unique Code</th>
+            <th>Voice You Selected</th>
+            <th>Your Text</th>
+            <th>Status</th>
+            <th>Player</th>
+          </tr>
+        </tbody>
+      </table>
+      
+      <div id="content2"><b>* Search for your file above to see results *</b></div>
+        
+      
+      <footer>
+          
+        
+      <p> Voice Lab - 2020</p>
+      
+      
+      </footer>
+        
+      
+
+    <!-- Link the JavaScript Functions -->
+    <script src="scripts.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>
+  </body>
+</html>
